@@ -1,9 +1,15 @@
 package com.basic.Basic_Project_Spring.reservation.domain;
 
 import com.basic.Basic_Project_Spring.common.exception.ForbiddenException;
+import com.basic.Basic_Project_Spring.departure.domain.Departure;
 import com.basic.Basic_Project_Spring.member.domain.Member;
-import com.basic.Basic_Project_Spring.ship.domain.Ship;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,17 +27,17 @@ public class Reservation {
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ship_id")
-    private Ship ship;
+    @JoinColumn(name = "departure_id")
+    private Departure departure;
 
-    public Reservation(Member member, Ship ship) {
+    public Reservation(Member member, Departure departure) {
         this.member = member;
-        this.ship = ship;
+        this.departure = departure;
     }
 
     public void validateAuthority(Member member) {
         if (!this.member.getId().equals(member.getId())) {
-            throw new ForbiddenException("예약에 대한 권한이 없습니다.");
+            throw new ForbiddenException("해당 예약에 대한 권한이 없습니다.");
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.basic.Basic_Project_Spring.ship.presentation.response;
 
+import com.basic.Basic_Project_Spring.member.presentation.response.MemberResponse;
 import com.basic.Basic_Project_Spring.ship.domain.Ship;
 
 public record ShipResponse(
@@ -11,7 +12,8 @@ public record ShipResponse(
         double weight,
         double length,
         double width,
-        double height
+        double height,
+        MemberResponse owner
 ) {
 
     public static ShipResponse of(Ship ship) {
@@ -24,7 +26,8 @@ public record ShipResponse(
                 ship.getWeight(),
                 ship.getLength(),
                 ship.getWidth(),
-                ship.getHeight()
+                ship.getHeight(),
+                new MemberResponse(ship.getOwner().getName())
         );
     }
 }

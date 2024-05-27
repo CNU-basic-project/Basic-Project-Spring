@@ -7,6 +7,7 @@ import com.basic.Basic_Project_Spring.member.domain.MemberRepository;
 import com.basic.Basic_Project_Spring.ship.domain.Ship;
 import com.basic.Basic_Project_Spring.ship.domain.ShipRepository;
 import com.basic.Basic_Project_Spring.ship.presentation.request.ShipRequest;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,12 @@ public class ShipService {
 
     private final ShipRepository shipRepository;
     private final MemberRepository memberRepository;
+
+    public List<Ship> getShips(
+            String username
+    ) {
+        return shipRepository.findAllByMemberUsername(username);
+    }
 
     public Long add(
             Long memberId,
@@ -41,13 +48,14 @@ public class ShipService {
     public void update(
             Long memberId,
             Long shipId,
-            ShipRepository request
+            ShipRequest request
     ) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new UnAuthorizeException("회원 정보가 존재하지 않습니다."));
         Ship ship = shipRepository.findById(shipId)
                 .orElseThrow(() -> new NotFoundException("배 정보가 존재하지 않습니다."));
         ship.validateAuthority(member);
+        ship.update(request);
     }
 
     public void delete(
