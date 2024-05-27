@@ -1,5 +1,6 @@
 package com.basic.Basic_Project_Spring.ship.application;
 
+import com.basic.Basic_Project_Spring.auth.Auth;
 import com.basic.Basic_Project_Spring.common.exception.NotFoundException;
 import com.basic.Basic_Project_Spring.common.exception.UnAuthorizeException;
 import com.basic.Basic_Project_Spring.member.domain.Member;
@@ -19,9 +20,9 @@ public class ShipService {
     private final MemberRepository memberRepository;
 
     public List<Ship> getShips(
-            String username
+            @Auth Long memberId
     ) {
-        return shipRepository.findAllByMemberUsername(username);
+        return shipRepository.findAllByMemberId(memberId);
     }
 
     public Long add(
