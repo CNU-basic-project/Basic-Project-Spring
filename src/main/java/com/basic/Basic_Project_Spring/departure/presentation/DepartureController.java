@@ -7,20 +7,14 @@ import com.basic.Basic_Project_Spring.departure.domain.Departure;
 import com.basic.Basic_Project_Spring.departure.presentation.request.DepartureRequest;
 import com.basic.Basic_Project_Spring.departure.presentation.response.DepartureResponse;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
 import java.net.URI;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RequestMapping("/departures")
@@ -37,7 +31,7 @@ public class DepartureController {
         return ResponseEntity.ok().body(new Result<>(responses, responses.size()));
     }
 
-    @GetMapping
+    @GetMapping("/search")
     public ResponseEntity<Result<List<DepartureResponse>>> getBySearch(
             @RequestParam String keyword
     ) {
@@ -48,7 +42,7 @@ public class DepartureController {
         return ResponseEntity.ok().body(new Result<>(responses, responses.size()));
     }
 
-    @GetMapping
+    @GetMapping("/date")
     public ResponseEntity<Result<List<DepartureResponse>>> getByDate(
             @RequestParam String date
     ) {
@@ -60,7 +54,7 @@ public class DepartureController {
         return ResponseEntity.ok().body(new Result<>(responses, responses.size()));
     }
 
-    @GetMapping
+    @GetMapping("/query")
     public ResponseEntity<Result<List<DepartureResponse>>> getByQuery(
             @RequestParam String date,
             @RequestParam String keyword

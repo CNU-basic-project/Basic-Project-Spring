@@ -1,6 +1,5 @@
 package com.basic.Basic_Project_Spring.ship.application;
 
-import com.basic.Basic_Project_Spring.auth.Auth;
 import com.basic.Basic_Project_Spring.common.exception.NotFoundException;
 import com.basic.Basic_Project_Spring.common.exception.UnAuthorizeException;
 import com.basic.Basic_Project_Spring.member.domain.Member;
@@ -8,9 +7,10 @@ import com.basic.Basic_Project_Spring.member.domain.MemberRepository;
 import com.basic.Basic_Project_Spring.ship.domain.Ship;
 import com.basic.Basic_Project_Spring.ship.domain.ShipRepository;
 import com.basic.Basic_Project_Spring.ship.presentation.request.ShipRequest;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -20,9 +20,9 @@ public class ShipService {
     private final MemberRepository memberRepository;
 
     public List<Ship> getShips(
-            @Auth Long memberId
+            Long memberId
     ) {
-        return shipRepository.findAllByMemberId(memberId);
+        return shipRepository.findAllByOwnerId(memberId);
     }
 
     public Long add(
