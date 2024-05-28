@@ -57,6 +57,7 @@ public class ShipService {
                 .orElseThrow(() -> new NotFoundException("배 정보가 존재하지 않습니다."));
         ship.validateAuthority(member);
         ship.update(request);
+        shipRepository.save(ship);
     }
 
     public void delete(
