@@ -42,12 +42,13 @@ public class ShipController {
     }
 
     @PutMapping("/{id}")
-    public void update(
+    public ResponseEntity<Void> update(
             @Auth Long memberId,
             @PathVariable("id") Long shipId,
             @Valid @RequestBody ShipRequest shipRequest
     ) {
         shipService.update(memberId, shipId, shipRequest);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
