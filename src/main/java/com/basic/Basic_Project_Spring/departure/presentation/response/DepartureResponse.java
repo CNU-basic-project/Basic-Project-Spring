@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public record DepartureResponse(
+        Long id,
         LocalDate date,
         String departures,
         LocalTime departureTime,
@@ -18,6 +19,7 @@ public record DepartureResponse(
 
     public static DepartureResponse of(Departure departure) {
         return new DepartureResponse(
+                departure.getId(),
                 departure.getDate(),
                 departure.getDepartures(),
                 departure.getDepartureTime(),

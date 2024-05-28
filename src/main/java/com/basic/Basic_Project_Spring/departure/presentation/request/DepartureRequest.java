@@ -5,12 +5,12 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public record DepartureRequest(
-        @NotBlank LocalDate date,
+        LocalDate date,
         @NotBlank String departures,
-        @NotBlank LocalTime departureTime,
+        LocalTime departureTime,
         @NotBlank String arrivals,
-        @NotBlank LocalTime arrivalTime,
-        @NotBlank int price,
-        @NotBlank Long shipId
+        LocalTime arrivalTime,
+        int price,
+        Long shipId
 ) {
 }

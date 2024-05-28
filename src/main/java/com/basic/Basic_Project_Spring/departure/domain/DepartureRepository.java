@@ -12,7 +12,7 @@ public interface DepartureRepository extends JpaRepository<Departure, Long> {
     List<Departure> findAllByDeparturesContainingOrArrivalsContaining(String keyword1, String keyword2);
     List<Departure> findAllByDate(LocalDate date);
 
-    @Query("SELECT s FROM Departure s WHERE s.date = :date AND (s.departures LIKE :keyword OR s.arrivals LIKE :keyword)")
+    @Query("SELECT s FROM Departure s WHERE s.date = :date AND (s.departures LIKE %:keyword% OR s.arrivals LIKE %:keyword%)")
     List<Departure> findAllByDateAndQuery(@Param("date") LocalDate date, @Param("keyword") String keyword);
 }
 

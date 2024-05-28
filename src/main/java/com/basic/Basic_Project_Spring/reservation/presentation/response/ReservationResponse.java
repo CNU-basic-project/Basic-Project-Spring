@@ -14,6 +14,7 @@ public record ReservationResponse(
         return new ReservationResponse(
                 reservation.getId(),
                 new MemberResponse(
+                        reservation.getMember().getId(),
                         reservation.getMember().getName()
                 ),
                 DepartureResponse.of(reservation.getDeparture())

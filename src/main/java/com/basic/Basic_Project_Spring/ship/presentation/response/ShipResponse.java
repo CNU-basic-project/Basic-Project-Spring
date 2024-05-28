@@ -4,6 +4,7 @@ import com.basic.Basic_Project_Spring.member.presentation.response.MemberRespons
 import com.basic.Basic_Project_Spring.ship.domain.Ship;
 
 public record ShipResponse(
+        Long id,
         String name,
         String imagePath,
         int seats,
@@ -18,6 +19,7 @@ public record ShipResponse(
 
     public static ShipResponse of(Ship ship) {
         return new ShipResponse(
+                ship.getId(),
                 ship.getName(),
                 ship.getImagePath(),
                 ship.getSeats(),
@@ -27,7 +29,9 @@ public record ShipResponse(
                 ship.getLength(),
                 ship.getWidth(),
                 ship.getHeight(),
-                new MemberResponse(ship.getOwner().getName())
+                new MemberResponse(
+                        ship.getOwner().getId(),
+                        ship.getOwner().getName())
         );
     }
 }

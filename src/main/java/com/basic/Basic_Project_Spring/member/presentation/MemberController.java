@@ -11,10 +11,7 @@ import com.basic.Basic_Project_Spring.member.presentation.response.MemberRespons
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
@@ -30,7 +27,6 @@ public class MemberController {
     public ResponseEntity<Void> signup(
         @Valid @RequestBody SignupRequest signupRequest
     ) {
-        System.out.println(signupRequest.name() + " " + signupRequest.username());
         Long memberId = memberService.signup(signupRequest.username(), signupRequest.password(), signupRequest.name());
         return ResponseEntity.created(URI.create("/members/" + memberId)).build();
     }
@@ -45,11 +41,11 @@ public class MemberController {
         return ResponseEntity.ok(new LoginResponse(accessToken));
     }
 
-    @PostMapping("/token")
+    @GetMapping("/token")
     public ResponseEntity<MemberResponse> token(
         @Auth Long memberId
     ) {
        Member member = memberService.findById(memberId);
-       return ResponseEntity.ok(new MemberResponse(member.getName()));
+       return ResponseEntity.ok(new MemberResponse(member.getId(), member.getName()));
     }
 }
