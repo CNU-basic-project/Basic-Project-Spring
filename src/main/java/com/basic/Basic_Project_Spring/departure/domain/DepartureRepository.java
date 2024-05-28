@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface DepartureRepository extends JpaRepository<Departure, Long> {
 
+    List<Departure> findAllByShipId(Long shipId);
     List<Departure> findAllByDeparturesContainingOrArrivalsContaining(String keyword1, String keyword2);
     List<Departure> findAllByDate(LocalDate date);
 

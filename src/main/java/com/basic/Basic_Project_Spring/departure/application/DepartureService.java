@@ -10,10 +10,11 @@ import com.basic.Basic_Project_Spring.member.domain.MemberRepository;
 import com.basic.Basic_Project_Spring.reservation.domain.ReservationRepository;
 import com.basic.Basic_Project_Spring.ship.domain.Ship;
 import com.basic.Basic_Project_Spring.ship.domain.ShipRepository;
-import java.time.LocalDate;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -73,5 +74,12 @@ public class DepartureService {
         departure.getShip().validateAuthority(member);
         reservationRepository.deleteAllByDepartureId(departureId);
         departureRepository.delete(departure);
+    }
+
+    public void delete(
+            Long departureId
+    ) {
+        reservationRepository.deleteAllByDepartureId(departureId);
+        departureRepository.deleteById(departureId);
     }
 }

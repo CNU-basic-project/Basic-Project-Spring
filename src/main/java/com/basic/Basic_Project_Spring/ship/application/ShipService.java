@@ -2,6 +2,8 @@ package com.basic.Basic_Project_Spring.ship.application;
 
 import com.basic.Basic_Project_Spring.common.exception.NotFoundException;
 import com.basic.Basic_Project_Spring.common.exception.UnAuthorizeException;
+import com.basic.Basic_Project_Spring.departure.application.DepartureService;
+import com.basic.Basic_Project_Spring.departure.domain.DepartureRepository;
 import com.basic.Basic_Project_Spring.member.domain.Member;
 import com.basic.Basic_Project_Spring.member.domain.MemberRepository;
 import com.basic.Basic_Project_Spring.ship.domain.Ship;
@@ -17,7 +19,9 @@ import java.util.List;
 public class ShipService {
 
     private final ShipRepository shipRepository;
+    private final DepartureRepository departureRepository;
     private final MemberRepository memberRepository;
+    private final DepartureService departureService;
 
     public List<Ship> getShips(
             Long memberId
@@ -69,6 +73,8 @@ public class ShipService {
         Ship ship = shipRepository.findById(shipId)
                 .orElseThrow(() -> new NotFoundException("배 정보가 존재하지 않습니다."));
         ship.validateAuthority(member);
+        departureRepository.findAllByShipId(ship.getId())
+                .forEach(departure -> departureService.delete(departure.getId()));
         shipRepository.delete(ship);
     }
 }
