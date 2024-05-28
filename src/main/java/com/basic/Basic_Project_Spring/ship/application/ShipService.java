@@ -26,7 +26,9 @@ public class ShipService {
     public List<Ship> getShips(
             Long memberId
     ) {
-        return shipRepository.findAllByOwnerId(memberId);
+        Member owner = memberRepository.findById(memberId)
+                .orElseThrow(() -> new UnAuthorizeException("회원 정보가 존재하지 않습니다."));
+        return shipRepository.findAllByOwner(owner);
     }
 
     public Long add(
@@ -73,8 +75,8 @@ public class ShipService {
         Ship ship = shipRepository.findById(shipId)
                 .orElseThrow(() -> new NotFoundException("배 정보가 존재하지 않습니다."));
         ship.validateAuthority(member);
-        departureRepository.findAllByShipId(ship.getId())
-                .forEach(departure -> departureService.delete(departure.getId()));
+        departureRepository.findAllByShip(ship)
+                .forEach(departureService::delete);
         shipRepository.delete(ship);
     }
 }

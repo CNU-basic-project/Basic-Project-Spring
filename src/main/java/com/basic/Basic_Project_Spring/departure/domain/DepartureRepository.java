@@ -1,5 +1,6 @@
 package com.basic.Basic_Project_Spring.departure.domain;
 
+import com.basic.Basic_Project_Spring.ship.domain.Ship;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -9,7 +10,7 @@ import java.util.List;
 
 public interface DepartureRepository extends JpaRepository<Departure, Long> {
 
-    List<Departure> findAllByShipId(Long shipId);
+    List<Departure> findAllByShip(Ship ship);
     List<Departure> findAllByDeparturesContainingOrArrivalsContaining(String keyword1, String keyword2);
     List<Departure> findAllByDate(LocalDate date);
 

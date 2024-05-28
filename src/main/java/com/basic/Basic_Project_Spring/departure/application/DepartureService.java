@@ -72,14 +72,14 @@ public class DepartureService {
         Departure departure = departureRepository.findById(departureId)
                 .orElseThrow(() -> new NotFoundException("출항 정보가 존재하지 않습니다."));
         departure.getShip().validateAuthority(member);
-        reservationRepository.deleteAllByDepartureId(departureId);
+        reservationRepository.deleteAllByDeparture(departure);
         departureRepository.delete(departure);
     }
 
     public void delete(
-            Long departureId
+            Departure departure
     ) {
-        reservationRepository.deleteAllByDepartureId(departureId);
-        departureRepository.deleteById(departureId);
+        reservationRepository.deleteAllByDeparture(departure);
+        departureRepository.deleteById(departure.getId());
     }
 }
