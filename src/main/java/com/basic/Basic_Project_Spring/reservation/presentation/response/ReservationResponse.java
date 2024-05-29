@@ -13,10 +13,7 @@ public record ReservationResponse(
     public static ReservationResponse of(Reservation reservation) {
         return new ReservationResponse(
                 reservation.getId(),
-                new MemberResponse(
-                        reservation.getMember().getId(),
-                        reservation.getMember().getName()
-                ),
+                MemberResponse.of(reservation.getMember()),
                 DepartureResponse.of(reservation.getDeparture())
         );
     }

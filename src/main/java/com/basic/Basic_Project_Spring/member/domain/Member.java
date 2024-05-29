@@ -19,11 +19,13 @@ public class Member {
     private String username;
     private String password;
     private String name;
+    private Long permission;
 
-    public Member(String username, String password, String name) {
+    public Member(String username, String password, String name, Long permission) {
         this.username = username;
         this.password = password;
         this.name = name;
+        this.permission = permission;
     }
 
     public void validator(MemberValidator memberValidator) {

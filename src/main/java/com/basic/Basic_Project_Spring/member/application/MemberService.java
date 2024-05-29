@@ -19,7 +19,7 @@ public class MemberService {
         String password,
         String name
     ) {
-        Member member = new Member(username, password, name);
+        Member member = new Member(username, password, name, 0L);
         member.validator(memberValidator);
         Member saved = memberRepository.save(member);
         return saved.getId();

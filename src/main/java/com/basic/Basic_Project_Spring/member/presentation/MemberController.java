@@ -46,6 +46,6 @@ public class MemberController {
         @Auth Long memberId
     ) {
        Member member = memberService.findById(memberId);
-       return ResponseEntity.ok(new MemberResponse(member.getId(), member.getName()));
+       return ResponseEntity.ok(MemberResponse.of(member));
     }
 }

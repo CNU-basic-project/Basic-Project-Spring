@@ -29,9 +29,7 @@ public record ShipResponse(
                 ship.getLength(),
                 ship.getWidth(),
                 ship.getHeight(),
-                new MemberResponse(
-                        ship.getOwner().getId(),
-                        ship.getOwner().getName())
+                MemberResponse.of(ship.getOwner())
         );
     }
 }
