@@ -3,6 +3,8 @@ package com.basic.Basic_Project_Spring.ship.presentation.response;
 import com.basic.Basic_Project_Spring.member.presentation.response.MemberResponse;
 import com.basic.Basic_Project_Spring.ship.domain.Ship;
 
+import java.time.LocalDate;
+
 public record ShipResponse(
         Long id,
         String name,
@@ -14,6 +16,7 @@ public record ShipResponse(
         double length,
         double width,
         double height,
+        LocalDate launchDate,
         MemberResponse owner
 ) {
 
@@ -29,6 +32,7 @@ public record ShipResponse(
                 ship.getLength(),
                 ship.getWidth(),
                 ship.getHeight(),
+                ship.getLaunchDate(),
                 MemberResponse.of(ship.getOwner())
         );
     }

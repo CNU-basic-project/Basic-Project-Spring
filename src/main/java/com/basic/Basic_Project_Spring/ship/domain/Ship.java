@@ -7,6 +7,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Getter
 @NoArgsConstructor
 @Entity
@@ -25,6 +27,7 @@ public class Ship {
     private double length;
     private double width;
     private double height;
+    private LocalDate launchDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner")
@@ -40,6 +43,7 @@ public class Ship {
             double length,
             double width,
             double height,
+            LocalDate launchDate,
             Member owner
     ) {
         this.name = name;
@@ -51,6 +55,7 @@ public class Ship {
         this.length = length;
         this.width = width;
         this.height = height;
+        this.launchDate = launchDate;
         this.owner = owner;
     }
 
@@ -69,6 +74,7 @@ public class Ship {
         length = request.length();
         width = request.width();
         height = request.height();
+        launchDate = request.launchDate();
     }
 
     public void validateAuthority(Member member) {

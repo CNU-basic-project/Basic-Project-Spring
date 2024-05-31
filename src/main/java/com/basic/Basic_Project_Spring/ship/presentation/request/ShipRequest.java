@@ -2,6 +2,8 @@ package com.basic.Basic_Project_Spring.ship.presentation.request;
 
 import jakarta.validation.constraints.NotBlank;
 
+import java.time.LocalDate;
+
 public record ShipRequest(
         @NotBlank String name,
         @NotBlank String imagePath,
@@ -11,6 +13,7 @@ public record ShipRequest(
         double weight,
         double length,
         double width,
-        double height
+        double height,
+        LocalDate launchDate
 ) {
 }

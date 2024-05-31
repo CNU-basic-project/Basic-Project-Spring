@@ -47,6 +47,7 @@ public class ShipService {
                 request.length(),
                 request.width(),
                 request.height(),
+                request.launchDate(),
                 owner
         );
         return shipRepository.save(ship).getId();
