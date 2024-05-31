@@ -20,7 +20,7 @@ public class Ship {
 
     private String name;
     private String imagePath;
-    private int seats; // 정원
+    private int seats;
     private String type;
     private int speed;
     private double weight;

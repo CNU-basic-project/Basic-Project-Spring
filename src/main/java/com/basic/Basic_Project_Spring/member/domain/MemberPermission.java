@@ -1,7 +1,11 @@
 package com.basic.Basic_Project_Spring.member.domain;
 
 import com.basic.Basic_Project_Spring.common.exception.ForbiddenException;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
+@RequiredArgsConstructor
+@Component
 public class MemberPermission {
 
     public void hasShipPermission(Long permission) {
