@@ -5,6 +5,7 @@ import com.basic.Basic_Project_Spring.common.exception.UnAuthorizeException;
 import com.basic.Basic_Project_Spring.departure.application.DepartureService;
 import com.basic.Basic_Project_Spring.departure.domain.DepartureRepository;
 import com.basic.Basic_Project_Spring.member.domain.Member;
+import com.basic.Basic_Project_Spring.member.domain.MemberPermission;
 import com.basic.Basic_Project_Spring.member.domain.MemberRepository;
 import com.basic.Basic_Project_Spring.ship.domain.Ship;
 import com.basic.Basic_Project_Spring.ship.domain.ShipRepository;
@@ -22,12 +23,14 @@ public class ShipService {
     private final DepartureRepository departureRepository;
     private final MemberRepository memberRepository;
     private final DepartureService departureService;
+    private final MemberPermission memberPermission;
 
     public List<Ship> getShips(
             Long memberId
     ) {
         Member owner = memberRepository.findById(memberId)
                 .orElseThrow(() -> new UnAuthorizeException("회원 정보가 존재하지 않습니다."));
+        owner.hasShipPermission(memberPermission);
         return shipRepository.findAllByOwner(owner);
     }
 
@@ -37,6 +40,7 @@ public class ShipService {
     ) {
         Member owner = memberRepository.findById(memberId)
                 .orElseThrow(() -> new UnAuthorizeException("회원 정보가 존재하지 않습니다."));
+        owner.hasShipPermission(memberPermission);
         Ship ship = new Ship(
                 request.name(),
                 request.imagePath(),
@@ -58,11 +62,12 @@ public class ShipService {
             Long shipId,
             ShipRequest request
     ) {
-        Member member = memberRepository.findById(memberId)
+        Member owner = memberRepository.findById(memberId)
                 .orElseThrow(() -> new UnAuthorizeException("회원 정보가 존재하지 않습니다."));
+        owner.hasShipPermission(memberPermission);
         Ship ship = shipRepository.findById(shipId)
                 .orElseThrow(() -> new NotFoundException("배 정보가 존재하지 않습니다."));
-        ship.validateAuthority(member);
+        ship.validateAuthority(owner);
         ship.update(request);
         shipRepository.save(ship);
     }
@@ -71,11 +76,12 @@ public class ShipService {
             Long memberId,
             Long shipId
     ) {
-        Member member = memberRepository.findById(memberId)
+        Member owner = memberRepository.findById(memberId)
                 .orElseThrow(() -> new UnAuthorizeException("회원 정보가 존재하지 않습니다."));
+        owner.hasShipPermission(memberPermission);
         Ship ship = shipRepository.findById(shipId)
                 .orElseThrow(() -> new NotFoundException("배 정보가 존재하지 않습니다."));
-        ship.validateAuthority(member);
+        ship.validateAuthority(owner);
         departureRepository.findAllByShip(ship)
                 .forEach(departureService::delete);
         shipRepository.delete(ship);

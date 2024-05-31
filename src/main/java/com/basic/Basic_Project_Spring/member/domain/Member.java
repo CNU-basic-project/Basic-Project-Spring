@@ -28,6 +28,10 @@ public class Member {
         this.permission = permission;
     }
 
+    public void hasShipPermission(MemberPermission memberPermission) {
+        memberPermission.hasShipPermission(permission);
+    }
+
     public void validator(MemberValidator memberValidator) {
         memberValidator.validateDuplicatedUsername(username);
     }
