@@ -28,6 +28,7 @@ public class Ship {
     private double width;
     private double height;
     private LocalDate launchDate;
+    private LocalDate checkDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner")
@@ -44,6 +45,7 @@ public class Ship {
             double width,
             double height,
             LocalDate launchDate,
+            LocalDate checkDate,
             Member owner
     ) {
         this.name = name;
@@ -56,6 +58,7 @@ public class Ship {
         this.width = width;
         this.height = height;
         this.launchDate = launchDate;
+        this.checkDate = checkDate;
         this.owner = owner;
     }
 
@@ -75,6 +78,7 @@ public class Ship {
         width = request.width();
         height = request.height();
         launchDate = request.launchDate();
+        checkDate = request.checkDate();
     }
 
     public void validateAuthority(Member member) {

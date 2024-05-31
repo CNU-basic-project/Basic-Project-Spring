@@ -17,6 +17,7 @@ public record ShipResponse(
         double width,
         double height,
         LocalDate launchDate,
+        LocalDate checkDate,
         MemberResponse owner
 ) {
 
@@ -33,6 +34,7 @@ public record ShipResponse(
                 ship.getWidth(),
                 ship.getHeight(),
                 ship.getLaunchDate(),
+                ship.getCheckDate(),
                 MemberResponse.of(ship.getOwner())
         );
     }

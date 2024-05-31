@@ -14,6 +14,7 @@ public record ShipRequest(
         double length,
         double width,
         double height,
-        LocalDate launchDate
+        LocalDate launchDate,
+        LocalDate checkDate
 ) {
 }
