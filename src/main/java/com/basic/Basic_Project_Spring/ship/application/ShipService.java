@@ -34,6 +34,14 @@ public class ShipService {
         return shipRepository.findAllByOwner(owner);
     }
 
+    public Ship get(
+            Long shipId
+    ) {
+        Ship ship = shipRepository.findById(shipId)
+                .orElseThrow(() -> new NotFoundException("배 정보가 존재하지 않습니다."));
+        return ship;
+    }
+
     public Long add(
             Long memberId,
             ShipRequest request

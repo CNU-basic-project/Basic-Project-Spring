@@ -25,6 +25,10 @@ public class DepartureService {
     private final MemberRepository memberRepository;
     private final ReservationRepository reservationRepository;
 
+    public List<Departure> getByShip(Ship ship) {
+        return departureRepository.findAllByShip(ship);
+    }
+
     public List<Departure> getBySearch(String keyword) {
         return departureRepository.findAllByDeparturesContainingOrArrivalsContaining(keyword, keyword);
     }
