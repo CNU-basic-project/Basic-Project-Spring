@@ -53,4 +53,12 @@ public class ExceptionAdvice {
         return ResponseEntity.internalServerError()
                 .body(new ExceptionResponse(e.getMessage()));
     }
+
+    @ExceptionHandler(RejectReservationException.class)
+    public ResponseEntity<ExceptionResponse> handle(RejectReservationException e) {
+        return new ResponseEntity<>(
+                new ExceptionResponse(e.getMessage()),
+                HttpStatusCode.valueOf(HttpStatus.OK.value())
+        );
+    }
 }
