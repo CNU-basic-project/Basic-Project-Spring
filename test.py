@@ -1,20 +1,26 @@
 import torch, sys
 from torch import nn
+import numpy as np
 import pickle
 
 class CustomModel(nn.Module):
     def __init__(self):
         super(CustomModel, self).__init__()
         self.layer = nn.Sequential(
-            nn.Linear(5, 32),
+            nn.Linear(5, 64),
+            nn.BatchNorm1d(64),
+            nn.ReLU(),
+            nn.Dropout(0.5),
+            nn.Linear(64, 32),
             nn.BatchNorm1d(32),
             nn.ReLU(),
-            nn.Dropout(0.3),
+            nn.Dropout(0.5),
             nn.Linear(32, 16),
             nn.BatchNorm1d(16),
             nn.ReLU(),
             nn.Dropout(0.3),
             nn.Linear(16, 4),
+            nn.Softmax(dim=1)
         )
 
     def forward(self, x):
@@ -23,7 +29,7 @@ class CustomModel(nn.Module):
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 model = CustomModel().to(device)
-model.load_state_dict(torch.load('model_state_dict.pth', map_location=torch.device('cpu')))
+model.load_state_dict(torch.load('model_state_dict.pth'))
 
 with open('mean_std.pkl', 'rb') as f:
     mean, std = pickle.load(f)
@@ -53,5 +59,4 @@ with torch.no_grad():
     output = model(inputs)
     _, predicted = torch.max(output.data, 1)
 
-    with open('output.txt', 'w', encoding='utf-8') as f:
-        f.write(mapping[predicted])
+    print(mapping[predicted])
