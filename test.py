@@ -1,6 +1,5 @@
 import torch, sys
 from torch import nn
-import numpy as np
 import pickle
 
 class CustomModel(nn.Module):
