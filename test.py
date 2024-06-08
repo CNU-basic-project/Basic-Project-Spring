@@ -58,4 +58,5 @@ with torch.no_grad():
     output = model(inputs)
     _, predicted = torch.max(output.data, 1)
 
-    print(mapping[predicted])
+    with open('output.txt', 'w', encoding='utf-8') as f:
+        f.write(mapping[predicted])
