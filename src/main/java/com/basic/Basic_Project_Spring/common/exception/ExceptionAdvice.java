@@ -61,4 +61,12 @@ public class ExceptionAdvice {
                 HttpStatusCode.valueOf(HttpStatus.OK.value())
         );
     }
+
+    @ExceptionHandler(AIException.class)
+    public ResponseEntity<ExceptionResponse> handle(AIException e) {
+        return new ResponseEntity<>(
+                new ExceptionResponse(e.getMessage()),
+                HttpStatusCode.valueOf(HttpStatus.OK.value())
+        );
+    }
 }
