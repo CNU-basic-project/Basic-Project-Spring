@@ -29,7 +29,7 @@ class CustomModel(nn.Module):
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 model = CustomModel().to(device)
-model.load_state_dict(torch.load('model_state_dict.pth'))
+model.load_state_dict(torch.load('model_state_dict.pth', map_location=torch.device('cpu')))
 
 with open('mean_std.pkl', 'rb') as f:
     mean, std = pickle.load(f)
@@ -42,15 +42,11 @@ def normalization(data):
         new_data.append((data[i]-mean[i])/std[i])
     return new_data
 
-try:
-    x1 = float(sys.argv[1])
-    x2 = float(sys.argv[2])
-    x3 = float(sys.argv[3])
-    x4 = float(sys.argv[4])
-    x5 = float(sys.argv[5])
-except:
-    print("error")
-    exit(0)
+x1 = float(sys.argv[1])
+x2 = float(sys.argv[2])
+x3 = float(sys.argv[3])
+x4 = float(sys.argv[4])
+x5 = float(sys.argv[5])
 
 with torch.no_grad():
     model.eval()
