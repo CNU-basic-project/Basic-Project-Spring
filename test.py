@@ -42,11 +42,15 @@ def normalization(data):
         new_data.append((data[i]-mean[i])/std[i])
     return new_data
 
-x1 = float(sys.argv[1])
-x2 = float(sys.argv[2])
-x3 = float(sys.argv[3])
-x4 = float(sys.argv[4])
-x5 = float(sys.argv[5])
+try:
+    x1 = float(sys.argv[1])
+    x2 = float(sys.argv[2])
+    x3 = float(sys.argv[3])
+    x4 = float(sys.argv[4])
+    x5 = float(sys.argv[5])
+except:
+    print("error")
+    exit(0)
 
 with torch.no_grad():
     model.eval()
